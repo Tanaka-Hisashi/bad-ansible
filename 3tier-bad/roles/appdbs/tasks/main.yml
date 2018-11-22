@@ -1,0 +1,26 @@
+---
+# appdbs
+- name: install postgresql
+  yum: 
+    name: postgresql-server
+    state: latest
+
+- name: enable postgresql at boot
+  service:
+    name: postgresql
+    enabled: yes
+
+- name: tell user to finish setting up postgres
+  debug:
+    msg: "Either uncomment the postgres setup or manually login and initialize"
+
+- name: postgres initdb
+  shell: "/usr/bin/postgresql-setup initdb"
+  args: 
+    creates: /var/lib/pgsql/data/postgresql.conf
+
+- name: start postgres
+  service:
+    name: postgresql.service
+    state: started
+
