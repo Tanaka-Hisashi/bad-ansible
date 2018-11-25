@@ -18,9 +18,5 @@
   shell: "/usr/bin/postgresql-setup initdb"
   args: 
     creates: /var/lib/pgsql/data/postgresql.conf
-
-- name: start postgres
-  service:
-    name: postgresql.service
-    state: started
+  notify: restart postgres
 
